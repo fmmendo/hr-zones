@@ -3,8 +3,8 @@ export type Discipline = 'run' | 'bike' | 'swim' | 'general'
 
 export interface Zone {
     label: string
-    lowerBound: number
-    upperBound: number
+    lowerBound?: number
+    upperBound?: number
     unit: ZoneUnit
     color?: string
 }
