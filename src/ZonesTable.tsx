@@ -1,21 +1,20 @@
 import type { Zone } from './types'
 
-// Same hues as the old bars, faded to a row fill via the /opacity modifier.
 const ZONE_ROW_COLORS = [
-  'bg-sky-500/10',
-  'bg-cyan-500/10',
-  'bg-green-500/10',
-  'bg-yellow-500/10',
-  'bg-orange-500/10',
-  'bg-red-500/10',
-  'bg-rose-600/15',
+  'bg-sky-500/10 dark:bg-sky-500/20',
+  'bg-cyan-500/10 dark:bg-cyan-500/20',
+  'bg-green-500/10 dark:bg-green-500/20',
+  'bg-yellow-500/10 dark:bg-yellow-500/20',
+  'bg-orange-500/10 dark:bg-orange-500/20',
+  'bg-red-500/10 dark:bg-red-500/20',
+  'bg-rose-600/15 dark:bg-rose-600/25',
 ]
 
 export function ZonesTable({ zones }: { zones: Zone[] }) {
   return (
     <table className="mt-6 w-full border-collapse text-sm">
       <thead>
-        <tr className="text-gray-500">
+        <tr className="text-gray-500 dark:text-gray-400">
           <th className="py-1 text-left">Zone</th>
           <th className="py-1 text-left">Description</th>
           <th className="py-1 text-right">Min (bpm)</th>

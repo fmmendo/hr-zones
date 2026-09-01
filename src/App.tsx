@@ -1,12 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { methods } from './methods'
-import type { InputValues } from './types';
 import { ZonesTable } from './ZonesTable'
+import type { InputValues } from './types'
+
+type Theme = 'light' | 'dark'
+
+function getSystemTheme(): Theme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
 
 function App() {
-
+  const [theme, setTheme] = useState<Theme>(getSystemTheme)
   const [methodId, setMethodId] = useState(methods[0].id)
   const [values, setValues] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }, [theme])
+
   const method = methods.find((m) => m.id === methodId)!
 
   function setValue(key: string, raw: string) {
@@ -28,12 +39,25 @@ function App() {
 
   return (
     <main className="mx-auto max-w-2xl p-8">
-      <h1 className="text-3xl font-bold text-purple-600">HR Zones</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+          HR Zones
+        </h1>
+        <button
+          type="button"
+          onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          className="rounded border border-gray-300 px-3 py-1 text-sm dark:border-gray-600"
+        >
+          {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+        </button>
+      </div>
 
       <label className="mt-6 block">
-        <span className="text-sm font-medium text-gray-600">Method</span>
+        <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+          Method
+        </span>
         <select
-          className="mt-1 block w-full rounded border border-gray-300 p-2"
+          className="mt-1 block w-full rounded border border-gray-300 bg-white p-2 dark:border-gray-600 dark:bg-gray-800"
           value={methodId}
           onChange={(e) => setMethodId(e.target.value)}
         >
@@ -48,7 +72,7 @@ function App() {
       <div className="mt-6 space-y-4">
         {method.inputs.map((input) => (
           <label key={input.key} className="block">
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
               {input.label} ({input.unit})
             </span>
             <input
@@ -57,10 +81,12 @@ function App() {
               min={input.min}
               max={input.max}
               onChange={(e) => setValue(input.key, e.target.value)}
-              className="mt-1 block w-full rounded border border-gray-300 p-2"
+              className="mt-1 block w-full rounded border border-gray-300 bg-white p-2 dark:border-gray-600 dark:bg-gray-800"
             />
             {input.help && (
-              <p className="mt-1 text-xs text-gray-400">{input.help}</p>
+              <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                {input.help}
+              </p>
             )}
           </label>
         ))}
