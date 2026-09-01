@@ -1,13 +1,13 @@
 import type { InputValues, Zone, ZoneMethod } from '../types'
 
 const ZONE_BANDS = [
-  { label: 'Zone 1', low: undefined, high: 0.85 },
-  { label: 'Zone 2', low: 0.85, high: 0.89 },
-  { label: 'Zone 3', low: 0.9, high: 0.94 },
-  { label: 'Zone 4', low: 0.94, high: 0.99 },
-  { label: 'Zone 5a', low: 1.0, high: 1.02 },
-  { label: 'Zone 5b', low: 1.03, high: 1.06 },
-  { label: 'Zone 5c', low: 1.07, high: undefined },
+  { label: 'Zone 1',  description: 'Recovery',           low: undefined, high: 0.85 },
+  { label: 'Zone 2',  description: 'Aerobic',            low: 0.85, high: 0.9 },
+  { label: 'Zone 3',  description: 'Tempo',              low: 0.9,  high: 0.95 },
+  { label: 'Zone 4',  description: 'SubThreshold',       low: 0.95, high: 1.0 },
+  { label: 'Zone 5a', description: 'SuperThreshold',     low: 1.0,  high: 1.03 },
+  { label: 'Zone 5b', description: 'Aerobic Capacity',   low: 1.03, high: 1.07 },
+  { label: 'Zone 5c', description: 'Anaerobic Capacity', low: 1.07, high: undefined },
 ]
 
 export const frielRunHr: ZoneMethod = {
@@ -31,6 +31,7 @@ export const frielRunHr: ZoneMethod = {
 
         return ZONE_BANDS.map((band): Zone => ({
             label: band.label,
+            description: band.description,
             lowerBound: bpm(band.low),
             upperBound: bpm(band.high),
             unit: 'bpm',

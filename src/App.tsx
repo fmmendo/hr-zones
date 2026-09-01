@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { methods } from './methods'
 import type { InputValues } from './types';
+import { ZonesTable } from './ZonesTable'
 
 function App() {
 
@@ -65,16 +66,7 @@ function App() {
         ))}
       </div>
 
-      {zones && (
-        <ul className="mt-6 space-y-1 text-sm">
-          {zones.map((z) => (
-            <li key={z.label}>
-              <span className="font-medium">{z.label}:</span>{' '}
-              {z.lowerBound ?? '–'}–{z.upperBound ?? '–'} {z.unit}
-            </li>
-          ))}
-        </ul>
-      )}
+      {zones && <ZonesTable zones={zones} />}
     </main>
   )
 }
